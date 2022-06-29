@@ -5,15 +5,26 @@ DECK = []
 MY_CARDS = []
 PC_CARDS = []
 
-for i in range(1, 20):
+for i in range(1, 21):
     DECK.append(i)
 
 
 def dealer(player_deck):
-    while len(player_deck) < 5:
+    while len(player_deck) < 4:
         selected_card = random.choices(DECK)[0]
         player_deck.append(selected_card)
         DECK.remove(selected_card)
+
+
+def pc_logics(player_select):
+    POSSIBLE_CHOICES = []
+    for i in sorted(PC_CARDS):
+        if i > player_select:
+            POSSIBLE_CHOICES.append(i)
+    if POSSIBLE_CHOICES:
+        return random.choices(POSSIBLE_CHOICES)[0]
+    else:
+        return min(PC_CARDS)
 
 
 def gameplay():
@@ -30,7 +41,7 @@ def gameplay():
                     MY_CARDS.remove(int(CHOICE))
                     print("Your enemy is picking a card...")
                     time.sleep(2)
-                    PC_CHOICE = max(PC_CARDS)
+                    PC_CHOICE = pc_logics(CHOICE)
                     PC_CARDS.remove(PC_CHOICE)
                     print(f"Enemy have picked {PC_CHOICE}")
                     if MY_CARDS:
@@ -48,6 +59,9 @@ def gameplay():
             print("")
             if MY_POINTS > PC_POINTS:
                 print('\033[1m' + '\033[92m' + "You won!" + '\033[0m')
+                break
+            elif MY_POINTS == PC_POINTS:
+                print('\033[1m' + '\033[93m' + "Draw!" + '\033[0m')
                 break
             else:
                 print('\033[1m' + '\033[91m' + "You lost!" + '\033[0m')
