@@ -1,6 +1,5 @@
 import random, time
 
-
 DECK = []
 MY_CARDS = []
 PC_CARDS = []
@@ -66,6 +65,7 @@ def gameplay():
             else:
                 print('\033[1m' + '\033[91m' + "You lost!" + '\033[0m')
                 break
+
 
 dealer(MY_CARDS)
 dealer(PC_CARDS)
